@@ -1,8 +1,8 @@
 {
-  "name": "${PROJECT_NAME}",
+  "name": "js",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "ChatGPT ASSIGNENTS/OOPs Encapsulation method/Bank Account Class.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
