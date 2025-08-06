@@ -10,20 +10,10 @@ class ATM {
     }
     deposit(depositNumber){
         this.#value += depositNumber;
-        console.log(`You deposited: ${depositNumber} cedis`);
+        console.log(`You deposited: ${this.#value} cedis`);
     }
     withdraw(number){
-        if(number > this.#value){
-            console.log(`Insufficient balance`);
-        }
-        else if (typeof number !== "number" || isNaN(number)) {
-            console.log("Enter a valid number");
-            return this.#value;
-        }
-        else {
-            this.#value -= number;
-            console.log(`You withdrawed: ${number} cedis`)
-        }
+        this.#value -= number;
     }
 }
 
@@ -35,7 +25,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-//const storedPasscode = "1234"; // You can change this to any passcode
+const storedPasscode = "1234"; // You can change this to any passcode
 
 console.log("Welcome to Enoch ATM");
 
@@ -49,13 +39,6 @@ rl.question("Please set your passcode: ", (initialPasscode) => {
         rl.question("Enter passcode again to login: ", (enteredPasscode) => {
             if (enteredPasscode === initialPasscode) {
                 console.log("✅ Login successful!");
-                console.log(
-                    `--- MENU ---
-1. Check Balance
-2. Deposit
-3. Withdraw
-5. Logout`
-                )
                 //rl.close();
                 function bank(){
                     rl.question("Choose an option: ", (number) => {
@@ -64,7 +47,7 @@ rl.question("Please set your passcode: ", (initialPasscode) => {
                                 rl.question("Enter an amount to deposit: ",  (depositNumber)=>{
                                     const convertDepositNumber = Number(depositNumber)
                                     money.deposit(convertDepositNumber)
-                                    money.checkBalance()// checks the balance
+                                    balanceCheck = money.checkBalance()// checks the balance
                                     return bank()
                                 })
                             } else if (choice === Number(1)){
@@ -72,38 +55,20 @@ rl.question("Please set your passcode: ", (initialPasscode) => {
                                  return bank()
                             } else if (choice === Number(3)){
                                 rl.question('Enter Amount to withdraw: ', (withDrawAmount) => {
-                                    // withDrawAmount is a number
-                                    // lets take withDrawAmount should only be a number
-                                    amountToWithDraw = withDrawAmount;
-                                    money.withdraw(amountToWithDraw)
-                                    money.checkBalance()
-                                    bank()
-                                })
-                            }else if(choice === Number(5)){
-                                rl.question("Do you want to logout? Yes or No: ", (answer)=> {
-                                    if (answer === 'Yes' || answer === 'yes') {
-                                     console.log("✅ Logout successful");
-                                     verifyPasscode()
-                                    } else if (answer === 'No'|| answer === 'no') {
-                                        console.log(
-                                            `--- MENU ---
-1.Check Balance
-2. Deposit
-3. Withdraw
-5. Logout`
-                                        )
-                                        return bank()
+                                    const amountToWithDraw = Number(withDrawAmount);
+                                    const currentBalance = money.checkBalance()
+                                    if (amountToWithDraw === currentBalance){
+                                        console.log("Cannot complete Transaction, Insufficent balance")
+                                    }else if (amountToWithDraw >=  currentBalance){
+                                        console.log("Insufficient balance")
+                                    }else{
+                                        money.withdraw(amountToWithDraw)
+                                        money.checkBalance()
+                                        bank()
                                     }
-                                });
-                                // return null
-                            } else {
-                                console.log(
-                                    `--- MENU ---
-1. Check Balance
-2. Deposit
-3. Withdraw
-5. Logout`
-                                )
+                                })
+                            }else {
+                                console.log("Enter 1 to check balance, Enter 2 to deposit, Enter 3 to withdraw")
                                 bank()
                             }
                     })
