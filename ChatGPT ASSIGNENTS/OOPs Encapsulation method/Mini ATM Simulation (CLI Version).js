@@ -25,7 +25,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-const storedPasscode = "1234"; // You can change this to any passcode
+//const storedPasscode = "1234"; // You can change this to any passcode
 
 console.log("Welcome to Enoch ATM");
 
@@ -47,7 +47,7 @@ rl.question("Please set your passcode: ", (initialPasscode) => {
                                 rl.question("Enter an amount to deposit: ",  (depositNumber)=>{
                                     const convertDepositNumber = Number(depositNumber)
                                     money.deposit(convertDepositNumber)
-                                    balanceCheck = money.checkBalance()// checks the balance
+                                    money.checkBalance()// checks the balance
                                     return bank()
                                 })
                             } else if (choice === Number(1)){
