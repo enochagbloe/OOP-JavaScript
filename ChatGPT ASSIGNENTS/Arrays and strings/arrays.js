@@ -1,23 +1,15 @@
-// an array is list of items
-// common operations like
-// push = Add and, remove = pop
+let numbers = [3, 7, 2, 9, 5, 16, 70];
+let max = numbers[0]
+// console.log(max);
+// numbers[i] // is each number in the array
+// [i] // is the current value of the array
 
-// for iterating we use a for loop or a for of loop
-
-//Assignments
-let tempurature = [1, "4", {
-    id: 1,
-    name: "John",
-}, {
-    "id": "numbers",
-    "name": "John",
-}]
-
-// lets use the common operations for this varaible
-let any = {
-    name: "John",
-    age: 23
+for (let i = 0; i < numbers.length; i++) {
+    let num = numbers[i]
+    if(num > max){
+        max = num
+    }
 }
-tempurature.push(any)
+console.log(max)
 
-console.log(tempurature)
+
